@@ -1,0 +1,28 @@
+.app {
+  min-height: 100vh;
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.mission-statement {
+  background-color: var(--surface-color);
+  padding: 2rem;
+  border-radius: 10px;
+  margin: 2rem 0;
+}
+
+.mission-statement h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+}

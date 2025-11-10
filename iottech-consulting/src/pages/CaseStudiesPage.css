@@ -1,0 +1,23 @@
+.case-studies-page {
+  width: 100%;
+}
+
+.case-studies-page h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.case-studies-intro {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.case-studies-grid {
+  display: grid;
+  gap: 2%;
+  margin-top: 2%;
+}

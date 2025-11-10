@@ -1,0 +1,65 @@
+.case-study {
+  background-color: var(--surface-color);
+  padding: 2%;
+  border-radius: 10px;
+  display: flex;
+  gap: 2%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.case-study:hover {
+  transform: translateY(-2px);
+}
+
+.case-image {
+  width: 200px;
+  height: 150px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.case-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.case-content {
+  flex: 1;
+}
+
+.case-rating {
+  color: #887407;
+  font-size: 120%;
+  margin-bottom: 0.5%;
+}
+
+.case-content h3 {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.case-content p {
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.case-client {
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-top: 1%;
+}
+
+@media (max-width: 768px) {
+  .case-study {
+    flex-direction: column;
+  }
+
+  .case-image {
+    width: 100%;
+    height: 200px;
+  }
+}
