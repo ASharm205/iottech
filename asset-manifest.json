@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/iottech/static/css/main.9e632b78.css",
+    "main.js": "/iottech/static/js/main.71c81298.js",
+    "index.html": "/iottech/index.html",
+    "main.9e632b78.css.map": "/iottech/static/css/main.9e632b78.css.map",
+    "main.71c81298.js.map": "/iottech/static/js/main.71c81298.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9e632b78.css",
+    "static/js/main.71c81298.js"
+  ]
+}
