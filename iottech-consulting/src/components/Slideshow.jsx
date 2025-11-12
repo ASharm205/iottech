@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Slideshow.css';
 
 function Slideshow() {
-  const slides = [
+  // fallback slides (used before API responds or if API fails)
+  const fallbackSlides = [
     {
       id: 1,
       title: "Innovative IoT Solutions",
@@ -19,18 +20,48 @@ function Slideshow() {
       id: 3,
       title: "Strategic Management Consulting",
       description: "Optimize operations and drive growth",
-      image: "/images/slideshows/solutions.png"    }
+      image: "/images/slideshows/solutions.png"
+    }
   ];
 
+  const [slides, setSlides] = useState(fallbackSlides);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
+    // auto-advance timer
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
 
     return () => clearInterval(timer);
   }, [slides.length]);
+
+  // fetch slides from API if available
+  useEffect(() => {
+    const apiBase = process.env.REACT_APP_API_URL;
+    if (!apiBase) return; // no API configured
+
+    let cancelled = false;
+    fetch(`${apiBase.replace(/\/$/, '')}/slides`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then((data) => {
+        if (!cancelled && Array.isArray(data) && data.length > 0) {
+          setSlides(data);
+        }
+      })
+      .catch((err) => {
+        // keep fallback slides on error
+        // eslint-disable-next-line no-console
+        console.warn('Failed to load slides from API:', err.message);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const goToSlide = (index) => {
     setCurrentSlide(index);

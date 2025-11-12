@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './ServicePage.css';
 import ServiceCard from '../components/ServiceCard';
 
 function ServicesPage({ setActivePage }) {
-  const services = [
+  const fallbackServices = [
     {
       id: 1,
       title: "Software",
@@ -19,6 +19,32 @@ function ServicesPage({ setActivePage }) {
       page: "management"
     }
   ];
+
+  const [services, setServices] = useState(fallbackServices);
+
+  useEffect(() => {
+    const apiBase = process.env.REACT_APP_API_URL;
+    if (!apiBase) return; // no API configured
+
+    let cancelled = false;
+    fetch(`${apiBase.replace(/\/$/, '')}/services`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then((data) => {
+        if (!cancelled && Array.isArray(data) && data.length > 0) setServices(data);
+      })
+      .catch((err) => {
+        // keep fallback services
+        // eslint-disable-next-line no-console
+        console.warn('Failed to load services from API:', err.message);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <div className="services-page">
