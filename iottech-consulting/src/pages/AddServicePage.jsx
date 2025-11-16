@@ -59,9 +59,9 @@ function AddServicePage({ setActivePage }) {
 
       <div className="services-list-section">
         <div className="services-list-wrapper">
-          <h2>Current Services</h2>
+          <h2>Our Consulting Services</h2>
           <p className="services-subtitle">
-            Browse all services available in our consulting portfolio
+            Explore our comprehensive range of consulting services
           </p>
           <div className="services-grid">
             {services.map((service) => (

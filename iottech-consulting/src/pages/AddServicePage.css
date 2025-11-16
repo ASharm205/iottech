@@ -1,6 +1,6 @@
 .add-service-page {
   min-height: 100vh;
-  background-color: #f7fafc;
+  background-color: var(--background-color);
 }
 
 /* Form Section */
@@ -10,7 +10,7 @@
 
 /* Services List Section */
 .services-list-section {
-  background-color: #f7fafc;
+  background-color: var(--background-color);
   padding: 60px 20px;
 }
 

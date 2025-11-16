@@ -144,18 +144,18 @@ function ServiceForm({ onServiceAdded }) {
   return (
     <div className="service-form-container">
       <div className="service-form-card">
-        <h2>Add a New Service</h2>
-        <p className="form-subtitle">Share your expertise with our community</p>
+        <h2>Add a Consulting Service</h2>
+        <p className="form-subtitle">Share your consulting expertise with our network</p>
 
         {submitStatus === 'success' && (
           <div className="alert alert-success">
-            ✓ Service added successfully! It will appear in the services list.
+            ✓ Consulting service added successfully! It will appear in the services list.
           </div>
         )}
 
         {submitStatus === 'error' && (
           <div className="alert alert-error">
-            ✗ Failed to add service. Please check your inputs and try again.
+            ✗ Failed to add consulting service. Please check your inputs and try again.
           </div>
         )}
 
@@ -170,7 +170,7 @@ function ServiceForm({ onServiceAdded }) {
               name="title"
               value={formData.title}
               onChange={handleChange}
-              placeholder="e.g., Cloud Migration Services"
+              placeholder="e.g., IoT Infrastructure Consulting"
               className={`form-input ${errors.title ? 'input-error' : ''}`}
             />
             {errors.title && <span className="error-message">{errors.title}</span>}
@@ -188,7 +188,7 @@ function ServiceForm({ onServiceAdded }) {
               name="description"
               value={formData.description}
               onChange={handleChange}
-              placeholder="Describe your service in detail..."
+              placeholder="Describe your consulting service, expertise, and what clients can expect..."
               className={`form-textarea ${errors.description ? 'input-error' : ''}`}
               rows="6"
             />
