@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/iottech/static/css/main.9e632b78.css",
-    "main.js": "/iottech/static/js/main.92cb9d94.js",
+    "main.css": "/iottech/static/css/main.48e92106.css",
+    "main.js": "/iottech/static/js/main.cd3e1285.js",
     "index.html": "/iottech/index.html",
-    "main.9e632b78.css.map": "/iottech/static/css/main.9e632b78.css.map",
-    "main.92cb9d94.js.map": "/iottech/static/js/main.92cb9d94.js.map"
+    "main.48e92106.css.map": "/iottech/static/css/main.48e92106.css.map",
+    "main.cd3e1285.js.map": "/iottech/static/js/main.cd3e1285.js.map"
   },
   "entrypoints": [
-    "static/css/main.9e632b78.css",
-    "static/js/main.92cb9d94.js"
+    "static/css/main.48e92106.css",
+    "static/js/main.cd3e1285.js"
   ]
 }
