@@ -8,14 +8,14 @@ function ServicesPage({ setActivePage }) {
       id: 1,
       title: "Software",
       description: "Our software consulting and development services are designed to bring your ideas to life through innovative digital solutions...",
-      image: "/iottech/images/slideshows/software.png",
+      image: "images/slideshows/software.png",
       page: "software"
     },
     {
       id: 2,
       title: "Management",
       description: "Our management consulting services focus on aligning technology with your business strategy to achieve long-term success...",
-      image: "/iottech/images/Mangement.png",
+      image: "images/Mangement.png",
       page: "management"
     }
   ];

@@ -8,19 +8,19 @@ function Slideshow() {
       id: 1,
       title: "Innovative IoT Solutions",
       description: "Transform your business with cutting-edge technology",
-      image: "/images/slideshows/company.png"
+      image: "images/slideshows/company.png"
     },
     {
       id: 2,
       title: "Expert Software Development",
       description: "Custom applications tailored to your needs",
-      image: "/images/slideshows/software.png"
+      image: "images/slideshows/software.png"
     },
     {
       id: 3,
       title: "Strategic Management Consulting",
       description: "Optimize operations and drive growth",
-      image: "/images/slideshows/solutions.png"
+      image: "images/slideshows/solutions.png"
     }
   ];
 
