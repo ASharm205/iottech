@@ -48,6 +48,14 @@ function Navigation({ activePage, setActivePage }) {
             </li>
             <li>
               <button
+                className={`nav-link ${activePage === 'add-service' ? 'active' : ''}`}
+                onClick={() => handleNavClick('add-service')}
+              >
+                Add Service
+              </button>
+            </li>
+            <li>
+              <button
                 className={`nav-link ${activePage === 'case-studies' ? 'active' : ''}`}
                 onClick={() => handleNavClick('case-studies')}
               >

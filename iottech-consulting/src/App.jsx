@@ -4,6 +4,7 @@ import Navigation from './components/Navigation';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicePage';
+import AddServicePage from './pages/AddServicePage';
 import SoftwareDetailPage from './pages/SoftwareDetailPage';
 import ManagementDetailPage from './pages/ManagementDetailPage';
 import CaseStudiesPage from './pages/CaseStudiesPage';
@@ -20,6 +21,7 @@ function App() {
         {activePage === 'home' && <HomePage />}
         {activePage === 'about' && <AboutPage />}
         {activePage === 'services' && <ServicesPage setActivePage={setActivePage} />}
+        {activePage === 'add-service' && <AddServicePage setActivePage={setActivePage} />}
         {activePage === 'software' && <SoftwareDetailPage setActivePage={setActivePage} />}
         {activePage === 'management' && <ManagementDetailPage setActivePage={setActivePage} />}
         {activePage === 'case-studies' && <CaseStudiesPage />}
