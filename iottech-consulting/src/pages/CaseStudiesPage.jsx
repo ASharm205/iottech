@@ -28,14 +28,6 @@ function CaseStudiesPage() {
       client: "Greenfield Enterprises",
       image: "images/comp.png"
     },
-    {
-      id: 4,
-      rating: "★★★★★ 5 Stars",
-      title: "Professional, reliable, and results-driven service!",
-      testimonial: "IOTTech's management services gave us the structure and guidance we needed to take our company to the next level. Their team worked closely with us to identify opportunities for growth and created a clear plan that delivered measurable results. Thanks to their expertise, we've achieved higher efficiency, reduced costs, and increased profits in just a few months. I would highly recommend them to any business looking to grow.",
-      client: "Horizon Global Solutions",
-      image: "images/company.png"
-    }
   ];
 
   return (
