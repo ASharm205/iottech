@@ -53,6 +53,32 @@
   margin-top: 1%;
 }
 
+.case-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-edit {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: white;
+}
+
+.btn-delete {
+  background: transparent;
+  color: var(--accent-color);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
 @media (max-width: 768px) {
   .case-study {
     flex-direction: column;
