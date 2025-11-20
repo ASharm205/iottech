@@ -10,7 +10,7 @@ function SoftwareDetailPage({ setActivePage }) {
         </button>
         <h2>Software Solutions</h2>
         <div className="service-hero">
-          <img src="images/solutions.png" alt="Software Solutions" />
+          <img src={`${process.env.PUBLIC_URL}/images/solutions.png`} alt="Software Solutions" />
         </div>
         <div className="service-content">
           <h3>Custom Software Development</h3>
