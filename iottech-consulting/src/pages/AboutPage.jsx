@@ -9,28 +9,28 @@ function AboutPage() {
       name: "Anuska Sharma",
       position: "CEO",
       bio: "With over three years of experience in the consulting industry, I founded IOTTech Consulting to help businesses, especially small and growing companies—unlock their potential through technology. My passion lies in building strategies that connect people, processes, and IOT solutions to deliver real results. As CEO, I focus on driving our vision forward and ensuring every client receives innovative solutions tailored to their needs.",
-      image: "/images/Anuska.png"
+      image: "images/Anuska.png"
     },
     {
       id: 2,
       name: "Jacob Lotter",
       position: "CFO",
       bio: "As a founding member of IOTTech Consulting, I bring financial expertise and strategic planning to support our clients' growth. With two years of experience in the consulting field, I have helped companies implement cost-efficient IOT and technology-driven solutions that maximize profitability. My role as CFO is to ensure sustainable financial health for both IOTTech and the organizations we partner with.",
-      image: "/images/jacob.png"
+      image: "images/jacob.png"
     },
     {
       id: 3,
       name: "Andrea Class",
       position: "CTO",
       bio: "As CTO, I lead the development and implementation of our technology solutions, ensuring clients receive cutting-edge IOT and software strategies. With a strong background in computer systems and software integration, I specialize in bridging technical innovation with practical business needs. In my first year at IOTTech, I've worked closely with teams to design scalable, secure, and user-friendly solutions that help businesses stay ahead in today's digital landscape.",
-      image: "/images/Girl.png"
+      image: "images/Girl.png"
     },
     {
       id: 4,
       name: "John Summit",
       position: "COO",
       bio: "With four years of experience in consulting and business operations, I oversee the delivery of our services to ensure every client engagement runs smoothly and efficiently. My role as COO is to transform business challenges into opportunities by implementing proven processes and scalable IOT-driven strategies. I take pride in helping companies achieve operational excellence while positioning them for future growth.",
-      image: "/images/Guy.png"
+      image: "images/Guy.png"
     }
   ];
 
