@@ -36,10 +36,12 @@ function Slideshow() {
     return () => clearInterval(timer);
   }, [slides.length]);
 
-  // fetch slides from API if available
+  // fetch slides from API if available — only in development/local env.
   useEffect(() => {
     const apiBase = process.env.REACT_APP_API_URL;
-    if (!apiBase) return; // no API configured
+    // Don't attempt to call localhost APIs from the deployed gh-pages site — that will fail in visitors' browsers.
+    const isLocal = (typeof window !== 'undefined') && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    if (!apiBase || !isLocal) return; // only fetch when running locally
 
     let cancelled = false;
     fetch(`${apiBase.replace(/\/$/, '')}/slides`)
@@ -52,10 +54,8 @@ function Slideshow() {
           setSlides(data);
         }
       })
-      .catch((err) => {
-        // keep fallback slides on error
-        // eslint-disable-next-line no-console
-        console.warn('Failed to load slides from API:', err.message);
+      .catch(() => {
+        // keep fallback slides on error; avoid noisy console output in production
       });
 
     return () => {

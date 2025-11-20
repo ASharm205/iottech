@@ -11,7 +11,7 @@ function HomePage() {
           <p className="hero-subtitle">We are the consulting service for your company!</p>
         </div>
         <div className="hero-image">
-          <div className="hero-image-placeholder">🏙️</div>
+          <img className="hero-image-img" src="images/F.jpg" alt="IOTTech skyline" />
         </div>
       </div>
 
