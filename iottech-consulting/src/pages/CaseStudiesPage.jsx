@@ -165,7 +165,7 @@ function CaseStudiesPage() {
       <div className="case-studies-header">
         <h2>Client Stories</h2>
         <div className="header-actions">
-          <button className="nav-link btn-primary" onClick={openAddForm}>Add Case Study</button>
+          <button className="nav-link btn-primary diagnostic-force" onClick={openAddForm}>Add Case Study</button>
         </div>
       </div>
 

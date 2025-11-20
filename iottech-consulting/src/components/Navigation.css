@@ -85,7 +85,8 @@
    (e.g. Add Case Study button). Keep the same hover/active/focus behavior */
 .nav-link {
   text-decoration: none;
-  color: var(--text-primary);
+  /* fallback to a readable color if CSS variables aren't available on the page */
+  color: var(--text-primary, #333333);
   padding: 0.45rem 0.9rem;
   border-radius: 10px;
   transition: all 0.18s ease;
@@ -137,8 +138,9 @@
 
 /* Primary colored button variant that reuses the nav pill look but is filled */
 .btn-primary {
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-  color: #fff;
+  /* ensure a visible gradient even when CSS variables are missing */
+  background: linear-gradient(90deg, var(--primary-color, #C29161), var(--accent-color, #F2A69C));
+  color: #fff !important;
   box-shadow: 0 8px 24px rgba(194,145,97,0.12);
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -206,6 +208,20 @@
     border-radius: 8px;
     padding: 1rem 0;
     gap: 0;
+  }
+
+  /* DIAGNOSTIC: force nav buttons visible in production for debugging
+     Remove this block once you've verified the issue. */
+  .nav-link.diagnostic-force,
+  .btn-primary.diagnostic-force,
+  .nav-link.diagnostic-force:hover,
+  .btn-primary.diagnostic-force:hover {
+    color: #ffffff !important;
+    background-image: none !important;
+    background-color: #C29161 !important;
+    opacity: 1 !important;
+    display: inline-block !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
   }
 
   .nav-menu.active {
