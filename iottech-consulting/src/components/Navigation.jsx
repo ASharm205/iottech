@@ -17,7 +17,7 @@ function Navigation({ activePage, setActivePage }) {
     <header className="header">
       <div className="header-container">
         <div className="logo">
-          <div className="logo-icon">🌆</div>
+          <img src="images/F.jpg" alt="IOTTech logo" className="logo-img" />
           <span className="logo-text">IOTTech Consulting</span>
         </div>
         <nav className="nav">
