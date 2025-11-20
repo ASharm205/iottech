@@ -83,7 +83,11 @@ function Slideshow() {
             key={slide.id}
             className={`slide ${index === currentSlide ? 'active' : ''}`}
           >
-            <div className="slide-image-placeholder">{slide.emoji}</div>
+            {slide.image ? (
+              <img className="slide-image" src={slide.image} alt={slide.title} />
+            ) : (
+              <div className="slide-image-placeholder">{slide.emoji}</div>
+            )}
             <div className="slide-content">
               <h2>{slide.title}</h2>
               <p>{slide.description}</p>
