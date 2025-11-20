@@ -13,11 +13,9 @@ function ServiceForm({ onServiceAdded }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
 
-  // Validation rules matching server-side Joi validation
   const validateForm = () => {
     const newErrors = {};
 
-    // Title validation: required, string, min 2, max 100
     if (!formData.title || formData.title.trim().length === 0) {
       newErrors.title = 'Title is required';
     } else if (formData.title.trim().length < 2) {
@@ -26,7 +24,6 @@ function ServiceForm({ onServiceAdded }) {
       newErrors.title = 'Title cannot exceed 100 characters';
     }
 
-    // Description validation: required, string, min 5, max 500
     if (!formData.description || formData.description.trim().length === 0) {
       newErrors.description = 'Description is required';
     } else if (formData.description.trim().length < 5) {
@@ -35,7 +32,6 @@ function ServiceForm({ onServiceAdded }) {
       newErrors.description = 'Description cannot exceed 500 characters';
     }
 
-    // Image validation: required, string, valid URL or relative path
     if (!formData.image || formData.image.trim().length === 0) {
       newErrors.image = 'Image URL is required';
     } else if (
@@ -46,7 +42,6 @@ function ServiceForm({ onServiceAdded }) {
       newErrors.image = 'Image must be a valid URL or relative path (e.g., images/file.png)';
     }
 
-    // Page validation: required, string, valid page reference
     if (!formData.page || formData.page.trim().length === 0) {
       newErrors.page = 'Page reference is required';
     } else if (formData.page.length > 50) {
@@ -63,7 +58,6 @@ function ServiceForm({ onServiceAdded }) {
       ...prev,
       [name]: value
     }));
-    // Clear error for this field when user starts typing
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -76,7 +70,6 @@ function ServiceForm({ onServiceAdded }) {
     e.preventDefault();
     setSubmitStatus(null);
 
-    // Client-side validation
     if (!validateForm()) {
       setSubmitStatus('error');
       return;
@@ -110,12 +103,10 @@ function ServiceForm({ onServiceAdded }) {
         setFormData({ title: '', description: '', image: '', page: '' });
         setErrors({});
 
-        // Notify parent component to update the services list
         if (onServiceAdded) {
           onServiceAdded(newService);
         }
 
-        // Clear success message after 3 seconds
         setTimeout(() => {
           setSubmitStatus(null);
         }, 3000);
@@ -123,7 +114,6 @@ function ServiceForm({ onServiceAdded }) {
         const errorData = await response.json().catch(() => ({}));
         setSubmitStatus('error');
         if (errorData.details) {
-          // Parse Joi validation errors from server
           const serverErrors = {};
           errorData.details.forEach((detail) => {
             serverErrors[detail.context.key] = detail.message;

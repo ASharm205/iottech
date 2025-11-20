@@ -67,7 +67,7 @@
   transition: background-color 0.3s;
 }
 
-  /* Buttons inside nav (we use <button class="nav-link"> in JSX) */
+  /* buttons inside nav (we use <button class="nav-link"> in JSX) */
   .nav-menu .nav-link,
   .nav-menu a {
     text-decoration: none;
@@ -81,11 +81,9 @@
     cursor: pointer;
   }
 
-/* expose the same pill-style button globally so other pages can reuse it
-   (e.g. Add Case Study button). Keep the same hover/active/focus behavior */
+
 .nav-link {
   text-decoration: none;
-  /* fallback to a readable color if CSS variables aren't available on the page */
   color: var(--text-primary, #333333);
   padding: 0.45rem 0.9rem;
   border-radius: 10px;
@@ -97,7 +95,6 @@
   display: inline-block;
 }
 
-  /* Nice gradient hover + active styles */
   .nav-menu .nav-link:hover,
   .nav-menu a:hover {
     background: linear-gradient(90deg, rgba(194,145,97,0.12), rgba(242,166,156,0.12));
@@ -124,7 +121,6 @@
   box-shadow: 0 8px 24px rgba(194,145,97,0.12);
 }
 
-  /* Focus-visible for accessibility */
   .nav-menu .nav-link:focus,
   .nav-menu a:focus {
     outline: 3px solid rgba(194,145,97,0.18);
@@ -136,9 +132,7 @@
   outline-offset: 3px;
 }
 
-/* Primary colored button variant that reuses the nav pill look but is filled */
 .btn-primary {
-  /* ensure a visible gradient even when CSS variables are missing */
   background: linear-gradient(90deg, var(--primary-color, #C29161), var(--accent-color, #F2A69C));
   color: #fff !important;
   box-shadow: 0 8px 24px rgba(194,145,97,0.12);
@@ -210,8 +204,6 @@
     gap: 0;
   }
 
-  /* DIAGNOSTIC: force nav buttons visible in production for debugging
-     Remove this block once you've verified the issue. */
   .nav-link.diagnostic-force,
   .btn-primary.diagnostic-force,
   .nav-link.diagnostic-force:hover,

@@ -36,8 +36,6 @@ function ServicesPage({ setActivePage }) {
         if (!cancelled && Array.isArray(data) && data.length > 0) setServices(data);
       })
       .catch((err) => {
-        // keep fallback services
-        // eslint-disable-next-line no-console
         console.warn('Failed to load services from API:', err.message);
       });
 

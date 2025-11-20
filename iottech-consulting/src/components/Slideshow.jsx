@@ -28,7 +28,7 @@ function Slideshow() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    // auto-advance timer
+    // timer
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
@@ -39,7 +39,7 @@ function Slideshow() {
   // fetch slides from API if available — only in development/local env.
   useEffect(() => {
     const apiBase = process.env.REACT_APP_API_URL;
-    // Don't attempt to call localhost APIs from the deployed gh-pages site — that will fail in visitors' browsers.
+    // don't attempt to call localhost APIs from the deployed gh-pages site — that will fail in visitors' browsers.
     const isLocal = (typeof window !== 'undefined') && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
     if (!apiBase || !isLocal) return; // only fetch when running locally
 
@@ -55,7 +55,6 @@ function Slideshow() {
         }
       })
       .catch(() => {
-        // keep fallback slides on error; avoid noisy console output in production
       });
 
     return () => {

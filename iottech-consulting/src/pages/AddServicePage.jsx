@@ -4,7 +4,7 @@ import ServiceForm from '../components/ServiceForm';
 
 function AddServicePage({ setActivePage }) {
   const handleServiceAdded = (newService) => {
-    // Service was successfully added via the form
+    // service was successfully added via the form
     console.log('New service added:', newService);
   };
 

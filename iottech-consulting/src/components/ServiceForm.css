@@ -64,7 +64,7 @@
   border-left: 4px solid var(--accent-color);
 }
 
-/* Form */
+/* form */
 .service-form {
   display: flex;
   flex-direction: column;
@@ -152,7 +152,7 @@
   margin-top: -4px;
 }
 
-/* Submit Button */
+/* submit button */
 .submit-btn {
   padding: 14px 20px;
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
@@ -180,7 +180,7 @@
   cursor: not-allowed;
 }
 
-/* Responsive */
+/* responsive */
 @media (max-width: 640px) {
   .service-form-container {
     padding: 20px 10px;
@@ -196,6 +196,6 @@
 
   .form-input,
   .form-textarea {
-    font-size: 16px; /* Prevent zoom on iOS */
+    font-size: 16px; 
   }
 }

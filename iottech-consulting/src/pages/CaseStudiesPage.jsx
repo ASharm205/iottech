@@ -35,7 +35,7 @@ function CaseStudiesPage() {
   ];
 
   const [caseStudies, setCaseStudies] = useState(fallback);
-  const [editing, setEditing] = useState(null); // object being edited
+  const [editing, setEditing] = useState(null); 
   const [showForm, setShowForm] = useState(false);
   const [statusMessage, setStatusMessage] = useState(null);
 
@@ -79,13 +79,11 @@ function CaseStudiesPage() {
   };
 
   const handleSave = async (data) => {
-    // if editing, send PUT; if adding, send POST
     const apiBase = process.env.REACT_APP_API_URL;
     const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
     const allowApi = apiBase && (isLocal || !apiBase.includes('localhost'));
 
     if (editing) {
-      // update locally first (optimistic)
       setCaseStudies((prev) => prev.map((s) => (s.id === editing.id ? { ...s, ...data } : s)));
       setStatusMessage('Updating...');
       if (allowApi) {
@@ -105,7 +103,6 @@ function CaseStudiesPage() {
         setStatusMessage('Updated (local only)');
       }
     } else {
-      // add new
       setStatusMessage('Adding...');
       if (allowApi) {
         const res = await fetch(`${apiBase.replace(/\/$/, '')}/casestudies`, {
@@ -121,14 +118,12 @@ function CaseStudiesPage() {
           setStatusMessage('Failed to add on server');
         }
       } else {
-        // local add with generated id
         const newItem = { ...data, id: Date.now() };
         setCaseStudies((prev) => [...prev, newItem]);
         setStatusMessage('Added (local only)');
       }
     }
 
-    // close form after a short delay
     setTimeout(() => {
       setShowForm(false);
       setEditing(null);
@@ -142,7 +137,6 @@ function CaseStudiesPage() {
     const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
     const allowApi = apiBase && (isLocal || !apiBase.includes('localhost'));
 
-    // optimistic remove
     setCaseStudies((prev) => prev.filter((s) => s.id !== study.id));
     setStatusMessage('Deleting...');
 

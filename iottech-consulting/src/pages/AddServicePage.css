@@ -3,12 +3,12 @@
   background-color: var(--background-color);
 }
 
-/* Form Section */
+/* form section */
 .add-service-page > div:first-child {
   margin-bottom: 0;
 }
 
-/* Services List Section */
+/* services list section */
 .services-list-section {
   background-color: var(--background-color);
   padding: 60px 20px;
@@ -34,7 +34,7 @@
   margin-bottom: 40px;
 }
 
-/* Services Grid */
+/* services grid */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -42,7 +42,7 @@
   margin-top: 30px;
 }
 
-/* Responsive */
+/* responsive */
 @media (max-width: 768px) {
   .services-list-section {
     padding: 40px 20px;

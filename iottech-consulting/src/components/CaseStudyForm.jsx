@@ -26,7 +26,7 @@ function CaseStudyForm({ initialData = null, onCancel, onSave }) {
     }
   }, [initialData]);
 
-  // Client-side validation matching server-side Joi rules (inferred):
+  // client-side validation matching server-side Joi rules (inferred):
   // title: required, string, 2-150
   // testimonial: required, string, 10-1000
   // client: required, string, 2-100
