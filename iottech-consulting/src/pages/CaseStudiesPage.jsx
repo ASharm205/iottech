@@ -93,9 +93,24 @@ function CaseStudiesPage() {
     const isFormData = typeof FormData !== 'undefined' && data instanceof FormData;
     const getId = (s) => s.id || s._id;
 
+    // Helper to extract plain object from FormData for local mode
+    const extractFormData = (fd) => {
+      const obj = {};
+      for (const [key, value] of fd.entries()) {
+        if (value instanceof File) {
+          // Create a local preview URL for the file
+          obj.image = URL.createObjectURL(value);
+        } else {
+          obj[key] = value;
+        }
+      }
+      return obj;
+    };
+
     if (editing) {
       if (!allowApi) {
-        setCaseStudies((prev) => prev.map((s) => (getId(s) === getId(editing) ? { ...s, ...(isFormData ? {} : data) } : s)));
+        const updates = isFormData ? extractFormData(data) : data;
+        setCaseStudies((prev) => prev.map((s) => (getId(s) === getId(editing) ? { ...s, ...updates } : s)));
         setStatusMessage('Updated (local only)');
       } else {
         setStatusMessage('Updating...');
@@ -119,7 +134,8 @@ function CaseStudiesPage() {
       }
     } else {
       if (!allowApi) {
-        const newItem = { ...(isFormData ? {} : data), id: Date.now() };
+        const extracted = isFormData ? extractFormData(data) : data;
+        const newItem = { ...extracted, id: Date.now() };
         setCaseStudies((prev) => [...prev, newItem]);
         setStatusMessage('Added (local only)');
       } else {
