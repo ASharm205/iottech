@@ -33,6 +33,28 @@ function ServicesPage({ setActivePage }) {
     } catch {}
   }, []);
 
+  const handleDelete = (serviceId) => {
+    // Only allow deletion of custom services (id > 2)
+    if (serviceId <= 2) {
+      alert('Cannot delete default services (Software and Management)');
+      return;
+    }
+    
+    if (!window.confirm('Are you sure you want to delete this service?')) {
+      return;
+    }
+
+    try {
+      const raw = localStorage.getItem('customServices');
+      const list = raw ? JSON.parse(raw) : [];
+      const updated = list.filter((s) => s.id !== serviceId);
+      localStorage.setItem('customServices', JSON.stringify(updated));
+      setServices((prev) => prev.filter((s) => s.id !== serviceId));
+    } catch (err) {
+      alert('Failed to delete service');
+    }
+  };
+
   return (
     <div className="services-page">
       <h2>Services we offer for different solutions:</h2>
@@ -40,10 +62,13 @@ function ServicesPage({ setActivePage }) {
         {services.map((service) => (
           <ServiceCard
             key={service.id}
+            id={service.id}
             title={service.title}
             description={service.description}
             image={service.image}
             onClick={() => setActivePage(service.page)}
+            onDelete={handleDelete}
+            isDeletable={service.id > 2}
           />
         ))}
       </div>

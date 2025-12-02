@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ServiceCard.css';
 
-function ServiceCard({ title, description, image, onClick }) {
+function ServiceCard({ id, title, description, image, onClick, onDelete, isDeletable }) {
   const [imageError, setImageError] = useState(false);
   
   // If it's already a full URL (http/https), use it directly
@@ -13,8 +13,22 @@ function ServiceCard({ title, description, image, onClick }) {
   // Fallback placeholder when image fails to load
   const placeholderSrc = `${process.env.PUBLIC_URL}/images/comp.png`;
 
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    if (onDelete) onDelete(id);
+  };
+
   return (
     <div className="service-item" onClick={onClick}>
+      {isDeletable && (
+        <button 
+          className="delete-service-btn" 
+          onClick={handleDeleteClick}
+          title="Delete service"
+        >
+          ×
+        </button>
+      )}
       <div className="service-image">
         <img 
           src={imageError ? placeholderSrc : resolvedSrc} 

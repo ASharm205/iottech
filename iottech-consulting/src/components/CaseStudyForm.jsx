@@ -9,7 +9,6 @@ function CaseStudyForm({ initialData = null, onCancel, onSave }) {
     image: '', // URL or relative path
     rating: 5
   });
-  const [imageFile, setImageFile] = useState(null);
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -24,7 +23,6 @@ function CaseStudyForm({ initialData = null, onCancel, onSave }) {
         image: initialData.imageUrl || initialData.imagePath || initialData.image || '',
         rating: initialData.rating || 5
       });
-      setImageFile(null);
     }
   }, [initialData]);
 
@@ -51,12 +49,10 @@ function CaseStudyForm({ initialData = null, onCancel, onSave }) {
     else if (c.length < 2) errs.client = 'Client name must be at least 2 characters';
     else if (c.length > 100) errs.client = 'Client name cannot exceed 100 characters';
 
-    // Accept either a file OR a URL/path
-    if ((!formData.image || formData.image.trim().length === 0) && !imageFile) {
-      errs.image = 'Image path/URL or file is required';
+    // Accept only URL/path
+    if (!formData.image || formData.image.trim().length === 0) {
+      errs.image = 'Image path/URL is required';
     } else if (
-      formData.image &&
-      formData.image.trim().length > 0 &&
       !formData.image.startsWith('http') &&
       !formData.image.startsWith('images/') &&
       !formData.image.startsWith('/')
@@ -79,15 +75,7 @@ function CaseStudyForm({ initialData = null, onCancel, onSave }) {
     if (errors[name]) setErrors((p) => ({ ...p, [name]: '' }));
   };
 
-  const handleFile = (e) => {
-    const file = e.target.files && e.target.files[0];
-    setImageFile(file || null);
-    if (file) {
-      // Clear URL if a file is chosen
-      setFormData((p) => ({ ...p, image: '' }));
-      if (errors.image) setErrors((p) => ({ ...p, image: '' }));
-    }
-  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,25 +87,14 @@ function CaseStudyForm({ initialData = null, onCancel, onSave }) {
     setIsSubmitting(true);
 
     try {
-      // Hand back either FormData (if file) or JSON-like object
+      // Pass plain object to onSave
       if (onSave) {
-        if (imageFile) {
-          const fd = new FormData();
-          fd.append('title', formData.title);
-          fd.append('testimonial', formData.testimonial);
-          fd.append('client', formData.client);
-          fd.append('rating', String(formData.rating));
-          fd.append('image', imageFile);
-          await onSave(fd);
-        } else {
-          await onSave({ ...formData });
-        }
+        await onSave({ ...formData });
       }
       setStatus('success');
       // Clear only if adding (no initialData)
       if (!initialData) {
         setFormData({ title: '', testimonial: '', client: '', image: '', rating: 5 });
-        setImageFile(null);
       }
       // clear status after 2.5s
       setTimeout(() => setStatus(null), 2500);
@@ -151,8 +128,6 @@ function CaseStudyForm({ initialData = null, onCancel, onSave }) {
 
         <label>Image path or URL <span className="required">*</span></label>
         <input name="image" value={formData.image} onChange={handleChange} placeholder="images/filename.png or https://..." />
-        <div style={{ margin: '8px 0', color: 'var(--text-secondary)' }}>or upload a file:</div>
-        <input type="file" accept="image/*" onChange={handleFile} />
         {errors.image && <div className="error">{errors.image}</div>}
 
         <label>Rating (1-5) <span className="required">*</span></label>
