@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Slideshow.css';
 
 function Slideshow() {
-  // fallback slides (used before API responds or if API fails)
+  // fallback slides 
   const fallbackSlides = [
     {
       id: 1,
@@ -36,12 +36,10 @@ function Slideshow() {
     return () => clearInterval(timer);
   }, [slides.length]);
 
-  // fetch slides from API if available — only in development/local env.
   useEffect(() => {
     const apiBase = process.env.REACT_APP_API_URL;
-    // don't attempt to call localhost APIs from the deployed gh-pages site — that will fail in visitors' browsers.
     const isLocal = (typeof window !== 'undefined') && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-    if (!apiBase || !isLocal) return; // only fetch when running locally
+    if (!apiBase || !isLocal) return; 
 
     let cancelled = false;
     fetch(`${apiBase.replace(/\/$/, '')}/slides`)

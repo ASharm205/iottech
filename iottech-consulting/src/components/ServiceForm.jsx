@@ -82,7 +82,7 @@ function ServiceForm({ onServiceAdded }) {
     try {
       const apiBase = process.env.REACT_APP_API_URL;
       if (!apiBase) {
-        // Local-only mode: persist to localStorage and notify parent
+        
         const newService = { ...formData, id: Date.now() };
         try {
           const raw = localStorage.getItem('customServices');
@@ -121,7 +121,6 @@ function ServiceForm({ onServiceAdded }) {
           setSubmitStatus(null);
         }, 3000);
       } else {
-        // If the server doesn't support /services or is failing, gracefully fallback to local storage
         const errorData = await response.json().catch(() => ({}));
         if (response.status === 404 || response.status >= 500) {
           const newService = { ...formData, id: Date.now() };

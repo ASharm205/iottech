@@ -93,12 +93,10 @@ function CaseStudiesPage() {
     const isFormData = typeof FormData !== 'undefined' && data instanceof FormData;
     const getId = (s) => s.id || s._id;
 
-    // Helper to extract plain object from FormData for local mode
     const extractFormData = (fd) => {
       const obj = {};
       for (const [key, value] of fd.entries()) {
         if (value instanceof File) {
-          // Create a local preview URL for the file
           obj.image = URL.createObjectURL(value);
         } else {
           obj[key] = value;

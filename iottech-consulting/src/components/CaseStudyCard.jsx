@@ -4,7 +4,6 @@ import './CaseStudyCard.css';
 function CaseStudyCard({ rating, title, testimonial, client, image, imageUrl, imagePath, onEdit, onDelete }) {
   const apiBase = process.env.REACT_APP_API_URL?.replace(/\/$/, '') || '';
   
-  // Priority: imageUrl (external) > imagePath (server upload) > image (local/fallback)
   let resolvedImg = image || '';
   if (imagePath) {
     resolvedImg = `${apiBase}${imagePath}`;
@@ -13,7 +12,7 @@ function CaseStudyCard({ rating, title, testimonial, client, image, imageUrl, im
     resolvedImg = imageUrl;
   }
   
-  // If local fallback path, resolve via PUBLIC_URL for gh-pages
+  // fallback path, resolve via PUBLIC_URL for gh-pages
   if (resolvedImg && !resolvedImg.startsWith('http') && !resolvedImg.startsWith('/uploads')) {
     resolvedImg = `${process.env.PUBLIC_URL}/${resolvedImg.replace(/^\//, '')}`;
   }

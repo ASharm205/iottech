@@ -23,7 +23,6 @@ function ServicesPage({ setActivePage }) {
   const [services, setServices] = useState(fallbackServices);
 
   useEffect(() => {
-    // Merge in any locally added services (from AddServicePage)
     try {
       const raw = localStorage.getItem('customServices');
       const list = raw ? JSON.parse(raw) : [];
@@ -34,7 +33,7 @@ function ServicesPage({ setActivePage }) {
   }, []);
 
   const handleDelete = (serviceId) => {
-    // Only allow deletion of custom services (id > 2)
+    // only allow deletion of custom services 
     if (serviceId <= 2) {
       alert('Cannot delete default services (Software and Management)');
       return;
@@ -56,11 +55,10 @@ function ServicesPage({ setActivePage }) {
   };
 
   const handleServiceClick = (service) => {
-    // Only navigate for Software and Management which have detail pages
+    // only navigate for software and management which have detail pages
     if (service.page && (service.page === 'software' || service.page === 'management')) {
       setActivePage(service.page);
     }
-    // For custom services without detail pages, do nothing (just show the card)
   };
 
   return (

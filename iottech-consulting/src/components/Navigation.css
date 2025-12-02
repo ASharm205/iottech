@@ -67,7 +67,7 @@
   transition: background-color 0.3s;
 }
 
-  /* buttons inside nav (we use <button class="nav-link"> in JSX) */
+  /* buttons inside nav */
   .nav-menu .nav-link,
   .nav-menu a {
     text-decoration: none;

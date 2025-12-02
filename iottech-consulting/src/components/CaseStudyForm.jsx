@@ -6,7 +6,7 @@ function CaseStudyForm({ initialData = null, onCancel, onSave }) {
     title: '',
     testimonial: '',
     client: '',
-    image: '', // URL or relative path
+    image: '', 
     rating: 5
   });
 
@@ -26,12 +26,7 @@ function CaseStudyForm({ initialData = null, onCancel, onSave }) {
     }
   }, [initialData]);
 
-  // client-side validation matching server-side Joi rules (inferred):
-  // title: required, string, 2-150
-  // testimonial: required, string, 10-1000
-  // client: required, string, 2-100
-  // image: required, url or relative path
-  // rating: required, integer 1-5
+ 
   function validate() {
     const errs = {};
     const t = formData.title && formData.title.trim();
@@ -49,7 +44,7 @@ function CaseStudyForm({ initialData = null, onCancel, onSave }) {
     else if (c.length < 2) errs.client = 'Client name must be at least 2 characters';
     else if (c.length > 100) errs.client = 'Client name cannot exceed 100 characters';
 
-    // Accept only URL/path
+    // accept only URL/path
     if (!formData.image || formData.image.trim().length === 0) {
       errs.image = 'Image path/URL is required';
     } else if (
@@ -92,11 +87,9 @@ function CaseStudyForm({ initialData = null, onCancel, onSave }) {
         await onSave({ ...formData });
       }
       setStatus('success');
-      // Clear only if adding (no initialData)
       if (!initialData) {
         setFormData({ title: '', testimonial: '', client: '', image: '', rating: 5 });
       }
-      // clear status after 2.5s
       setTimeout(() => setStatus(null), 2500);
     } catch (err) {
       setStatus('error');

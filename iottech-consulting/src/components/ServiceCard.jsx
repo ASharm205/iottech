@@ -4,13 +4,12 @@ import './ServiceCard.css';
 function ServiceCard({ id, title, description, image, onClick, onDelete, isDeletable, hasDetailPage }) {
   const [imageError, setImageError] = useState(false);
   
-  // If it's already a full URL (http/https), use it directly
-  // Otherwise treat it as a local path and prepend PUBLIC_URL
+  
   const resolvedSrc = typeof image === 'string' && image.match(/^https?:\/\//)
     ? image
     : `${process.env.PUBLIC_URL}/${(image || '').replace(/^\//, '')}`;
 
-  // Fallback placeholder when image fails to load
+  // fallback placeholder when image fails to load
   const placeholderSrc = `${process.env.PUBLIC_URL}/images/comp.png`;
 
   const handleDeleteClick = (e) => {
