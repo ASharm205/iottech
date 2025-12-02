@@ -1,11 +1,17 @@
 import React from 'react';
 import './CaseStudyCard.css';
 
-function CaseStudyCard({ rating, title, testimonial, client, image, onEdit, onDelete }) {
+function CaseStudyCard({ rating, title, testimonial, client, image, imageUrl, imagePath, onEdit, onDelete }) {
+  const apiBase = process.env.REACT_APP_API_URL?.replace(/\/$/, '') || '';
+  const resolvedImg = imageUrl
+    ? imageUrl
+    : imagePath
+    ? `${apiBase}${imagePath}`
+    : image;
   return (
     <div className="case-study">
       <div className="case-image">
-        <img src={image} alt={client} />
+        <img src={resolvedImg} alt={client} />
       </div>
       <div className="case-content">
         <div className="case-rating">{rating}</div>

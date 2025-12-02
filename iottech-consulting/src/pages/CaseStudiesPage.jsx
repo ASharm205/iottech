@@ -4,6 +4,12 @@ import CaseStudyCard from '../components/CaseStudyCard';
 import CaseStudyForm from '../components/CaseStudyForm';
 
 function CaseStudiesPage() {
+  const normalizeApiRoot = (base) => {
+    if (!base) return '';
+    const trimmed = base.replace(/\/$/, '');
+    return /\/api$/.test(trimmed) ? trimmed : `${trimmed}/api`;
+  };
+
   const fallback = [
     {
       id: 1,
@@ -46,7 +52,8 @@ function CaseStudiesPage() {
     if (!allowApi) return;
 
     let cancelled = false;
-    fetch(`${apiBase.replace(/\/$/, '')}/casestudies`)
+    const apiRoot = normalizeApiRoot(apiBase);
+    fetch(`${apiRoot}/casestudies`)
       .then((res) => {
         if (!res.ok) throw new Error('Network response not ok');
         return res.json();
@@ -82,45 +89,58 @@ function CaseStudiesPage() {
     const apiBase = process.env.REACT_APP_API_URL;
     const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
     const allowApi = apiBase && (isLocal || !apiBase.includes('localhost'));
+    const apiRoot = normalizeApiRoot(apiBase);
+    const isFormData = typeof FormData !== 'undefined' && data instanceof FormData;
+    const getId = (s) => s.id || s._id;
 
     if (editing) {
-      setCaseStudies((prev) => prev.map((s) => (s.id === editing.id ? { ...s, ...data } : s)));
-      setStatusMessage('Updating...');
-      if (allowApi) {
-        const res = await fetch(`${apiBase.replace(/\/$/, '')}/casestudies/${editing.id}`, {
+      if (!allowApi) {
+        setCaseStudies((prev) => prev.map((s) => (getId(s) === getId(editing) ? { ...s, ...(isFormData ? {} : data) } : s)));
+        setStatusMessage('Updated (local only)');
+      } else {
+        setStatusMessage('Updating...');
+        const res = await fetch(`${apiRoot}/casestudies/${getId(editing)}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+          headers: isFormData ? undefined : { 'Content-Type': 'application/json' },
+          body: isFormData ? data : JSON.stringify(data)
         });
         if (res.ok) {
           const updated = await res.json();
-          setCaseStudies((prev) => prev.map((s) => (s.id === editing.id ? updated : s)));
+          setCaseStudies((prev) => prev.map((s) => (getId(s) === getId(editing) ? updated : s)));
           setStatusMessage('Updated successfully');
         } else {
-          setStatusMessage('Failed to update on server');
+          try {
+            const err = await res.json();
+            setStatusMessage(err?.message || 'Failed to update on server');
+          } catch {
+            setStatusMessage('Failed to update on server');
+          }
         }
-      } else {
-        setStatusMessage('Updated (local only)');
       }
     } else {
-      setStatusMessage('Adding...');
-      if (allowApi) {
-        const res = await fetch(`${apiBase.replace(/\/$/, '')}/casestudies`, {
+      if (!allowApi) {
+        const newItem = { ...(isFormData ? {} : data), id: Date.now() };
+        setCaseStudies((prev) => [...prev, newItem]);
+        setStatusMessage('Added (local only)');
+      } else {
+        setStatusMessage('Adding...');
+        const res = await fetch(`${apiRoot}/casestudies`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+          headers: isFormData ? undefined : { 'Content-Type': 'application/json' },
+          body: isFormData ? data : JSON.stringify(data)
         });
         if (res.ok) {
           const created = await res.json();
           setCaseStudies((prev) => [...prev, created]);
           setStatusMessage('Added successfully');
         } else {
-          setStatusMessage('Failed to add on server');
+          try {
+            const err = await res.json();
+            setStatusMessage(err?.message || 'Failed to add on server');
+          } catch {
+            setStatusMessage('Failed to add on server');
+          }
         }
-      } else {
-        const newItem = { ...data, id: Date.now() };
-        setCaseStudies((prev) => [...prev, newItem]);
-        setStatusMessage('Added (local only)');
       }
     }
 
@@ -136,12 +156,14 @@ function CaseStudiesPage() {
     const apiBase = process.env.REACT_APP_API_URL;
     const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
     const allowApi = apiBase && (isLocal || !apiBase.includes('localhost'));
+    const apiRoot = normalizeApiRoot(apiBase);
+    const getId = (s) => s.id || s._id;
 
-    setCaseStudies((prev) => prev.filter((s) => s.id !== study.id));
+    setCaseStudies((prev) => prev.filter((s) => getId(s) !== getId(study)));
     setStatusMessage('Deleting...');
 
     if (allowApi) {
-      const res = await fetch(`${apiBase.replace(/\/$/, '')}/casestudies/${study.id}`, { method: 'DELETE' });
+      const res = await fetch(`${apiRoot}/casestudies/${getId(study)}`, { method: 'DELETE' });
       if (res.ok) {
         setStatusMessage('Deleted');
       } else {
@@ -175,12 +197,14 @@ function CaseStudiesPage() {
       <div className="case-studies-grid">
         {caseStudies.map((study) => (
           <CaseStudyCard
-            key={study.id}
+            key={study.id || study._id}
             rating={"★".repeat(study.rating) + (study.rating < 5 ? ` ${study.rating} Stars` : ' 5 Stars')}
             title={study.title}
             testimonial={study.testimonial}
             client={study.client}
             image={study.image}
+            imageUrl={study.imageUrl}
+            imagePath={study.imagePath}
             onEdit={() => openEditForm(study)}
             onDelete={() => handleDelete(study)}
           />
