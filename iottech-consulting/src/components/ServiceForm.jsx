@@ -35,11 +35,13 @@ function ServiceForm({ onServiceAdded }) {
     if (!formData.image || formData.image.trim().length === 0) {
       newErrors.image = 'Image URL is required';
     } else if (
-      !formData.image.startsWith('http') &&
+      !formData.image.match(/^https?:\/\//) &&
       !formData.image.startsWith('images/') &&
       !formData.image.startsWith('/')
     ) {
-      newErrors.image = 'Image must be a valid URL or relative path (e.g., images/file.png)';
+      newErrors.image = 'Image must be a valid URL (https://...) or relative path (images/file.png)';
+    } else if (formData.image.match(/^https?:\/\//) && !formData.image.match(/\.(jpg|jpeg|png|gif|webp|svg)$/i)) {
+      newErrors.image = 'URL must point to an image file (.jpg, .png, .gif, .webp, or .svg)';
     }
 
     if (!formData.page || formData.page.trim().length === 0) {
