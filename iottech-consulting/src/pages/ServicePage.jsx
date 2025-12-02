@@ -55,6 +55,14 @@ function ServicesPage({ setActivePage }) {
     }
   };
 
+  const handleServiceClick = (service) => {
+    // Only navigate for Software and Management which have detail pages
+    if (service.page && (service.page === 'software' || service.page === 'management')) {
+      setActivePage(service.page);
+    }
+    // For custom services without detail pages, do nothing (just show the card)
+  };
+
   return (
     <div className="services-page">
       <h2>Services we offer for different solutions:</h2>
@@ -66,9 +74,10 @@ function ServicesPage({ setActivePage }) {
             title={service.title}
             description={service.description}
             image={service.image}
-            onClick={() => setActivePage(service.page)}
+            onClick={() => handleServiceClick(service)}
             onDelete={handleDelete}
             isDeletable={service.id > 2}
+            hasDetailPage={service.page === 'software' || service.page === 'management'}
           />
         ))}
       </div>

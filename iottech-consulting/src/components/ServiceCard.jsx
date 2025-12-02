@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ServiceCard.css';
 
-function ServiceCard({ id, title, description, image, onClick, onDelete, isDeletable }) {
+function ServiceCard({ id, title, description, image, onClick, onDelete, isDeletable, hasDetailPage }) {
   const [imageError, setImageError] = useState(false);
   
   // If it's already a full URL (http/https), use it directly
@@ -19,7 +19,11 @@ function ServiceCard({ id, title, description, image, onClick, onDelete, isDelet
   };
 
   return (
-    <div className="service-item" onClick={onClick}>
+    <div 
+      className={`service-item ${hasDetailPage ? 'clickable' : 'non-clickable'}`} 
+      onClick={hasDetailPage ? onClick : undefined}
+      style={{ cursor: hasDetailPage ? 'pointer' : 'default' }}
+    >
       {isDeletable && (
         <button 
           className="delete-service-btn" 
@@ -38,7 +42,7 @@ function ServiceCard({ id, title, description, image, onClick, onDelete, isDelet
       </div>
       <div className="service-title">{title}</div>
       <p>{description}</p>
-      <div className="learn-more">Click to learn more</div>
+      {hasDetailPage && <div className="learn-more">Click to learn more</div>}
     </div>
   );
 }
