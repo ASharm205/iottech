@@ -80,8 +80,18 @@ function ServiceForm({ onServiceAdded }) {
     try {
       const apiBase = process.env.REACT_APP_API_URL;
       if (!apiBase) {
-        setSubmitStatus('error');
-        setErrors({ form: 'API not configured' });
+        // Local-only mode: persist to localStorage and notify parent
+        const newService = { ...formData, id: Date.now() };
+        try {
+          const raw = localStorage.getItem('customServices');
+          const list = raw ? JSON.parse(raw) : [];
+          localStorage.setItem('customServices', JSON.stringify([...list, newService]));
+        } catch {}
+        setSubmitStatus('success');
+        setFormData({ title: '', description: '', image: '', page: '' });
+        setErrors({});
+        if (onServiceAdded) onServiceAdded(newService);
+        setTimeout(() => setSubmitStatus(null), 3000);
         setIsSubmitting(false);
         return;
       }
@@ -103,24 +113,37 @@ function ServiceForm({ onServiceAdded }) {
         setFormData({ title: '', description: '', image: '', page: '' });
         setErrors({});
 
-        if (onServiceAdded) {
-          onServiceAdded(newService);
-        }
+        if (onServiceAdded) onServiceAdded(newService);
 
         setTimeout(() => {
           setSubmitStatus(null);
         }, 3000);
       } else {
+        // If the server doesn't support /services or is failing, gracefully fallback to local storage
         const errorData = await response.json().catch(() => ({}));
-        setSubmitStatus('error');
-        if (errorData.details) {
-          const serverErrors = {};
-          errorData.details.forEach((detail) => {
-            serverErrors[detail.context.key] = detail.message;
-          });
-          setErrors(serverErrors);
+        if (response.status === 404 || response.status >= 500) {
+          const newService = { ...formData, id: Date.now() };
+          try {
+            const raw = localStorage.getItem('customServices');
+            const list = raw ? JSON.parse(raw) : [];
+            localStorage.setItem('customServices', JSON.stringify([...list, newService]));
+          } catch {}
+          setSubmitStatus('success');
+          setFormData({ title: '', description: '', image: '', page: '' });
+          setErrors({});
+          if (onServiceAdded) onServiceAdded(newService);
+          setTimeout(() => setSubmitStatus(null), 3000);
         } else {
-          setErrors({ form: errorData.message || 'Failed to add service' });
+          setSubmitStatus('error');
+          if (errorData.details) {
+            const serverErrors = {};
+            errorData.details.forEach((detail) => {
+              serverErrors[detail.context.key] = detail.message;
+            });
+            setErrors(serverErrors);
+          } else {
+            setErrors({ form: errorData.message || 'Failed to add service' });
+          }
         }
       }
     } catch (err) {

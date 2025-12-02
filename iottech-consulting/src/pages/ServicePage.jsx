@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ServicePage.css';
 import ServiceCard from '../components/ServiceCard';
 
@@ -20,7 +20,18 @@ function ServicesPage({ setActivePage }) {
     }
   ];
 
-  const [services] = useState(fallbackServices);
+  const [services, setServices] = useState(fallbackServices);
+
+  useEffect(() => {
+    // Merge in any locally added services (from AddServicePage)
+    try {
+      const raw = localStorage.getItem('customServices');
+      const list = raw ? JSON.parse(raw) : [];
+      if (Array.isArray(list) && list.length) {
+        setServices((prev) => [...prev, ...list]);
+      }
+    } catch {}
+  }, []);
 
   return (
     <div className="services-page">

@@ -6,6 +6,8 @@ function AddServicePage({ setActivePage }) {
   const handleServiceAdded = (newService) => {
     // service was successfully added via the form
     console.log('New service added:', newService);
+    // Navigate back to services to view the newly added item
+    if (setActivePage) setActivePage('services');
   };
 
   return (
