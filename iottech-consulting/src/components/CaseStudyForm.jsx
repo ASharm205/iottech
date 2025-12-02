@@ -51,10 +51,12 @@ function CaseStudyForm({ initialData = null, onCancel, onSave }) {
     else if (c.length < 2) errs.client = 'Client name must be at least 2 characters';
     else if (c.length > 100) errs.client = 'Client name cannot exceed 100 characters';
 
+    // Accept either a file OR a URL/path
     if ((!formData.image || formData.image.trim().length === 0) && !imageFile) {
       errs.image = 'Image path/URL or file is required';
     } else if (
       formData.image &&
+      formData.image.trim().length > 0 &&
       !formData.image.startsWith('http') &&
       !formData.image.startsWith('images/') &&
       !formData.image.startsWith('/')
