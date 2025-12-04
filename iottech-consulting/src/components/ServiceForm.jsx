@@ -40,8 +40,6 @@ function ServiceForm({ onServiceAdded }) {
       !formData.image.startsWith('/')
     ) {
       newErrors.image = 'Image must be a valid URL (https://...) or relative path (images/file.png)';
-    } else if (formData.image.match(/^https?:\/\//) && !formData.image.match(/\.(jpg|jpeg|png|gif|webp|svg)$/i)) {
-      newErrors.image = 'URL must point to an image file (.jpg, .png, .gif, .webp, or .svg)';
     }
 
     if (!formData.page || formData.page.trim().length === 0) {
