@@ -148,8 +148,21 @@ function ServiceForm({ onServiceAdded }) {
         }
       }
     } catch (err) {
-      setSubmitStatus('error');
-      setErrors({ form: `Error: ${err.message}` });
+      // Network error or CORS - fallback to localStorage
+      const newService = { ...formData, id: Date.now() };
+      try {
+        const raw = localStorage.getItem('customServices');
+        const list = raw ? JSON.parse(raw) : [];
+        localStorage.setItem('customServices', JSON.stringify([...list, newService]));
+        setSubmitStatus('success');
+        setFormData({ title: '', description: '', image: '', page: '' });
+        setErrors({});
+        if (onServiceAdded) onServiceAdded(newService);
+        setTimeout(() => setSubmitStatus(null), 3000);
+      } catch (storageErr) {
+        setSubmitStatus('error');
+        setErrors({ form: `Error: ${err.message}` });
+      }
     } finally {
       setIsSubmitting(false);
     }
